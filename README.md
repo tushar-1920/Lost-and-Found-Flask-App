@@ -1,5 +1,6 @@
 ## 🔎 Lost & Found Web Application
-<p align="center"> <img src="./assets/banner.png" alt="Lost & Found Banner" width="800"/> </p> <p align="center"> <b>A Flask-powered web application to help people report, track, and recover lost items efficiently.</b> </p> <p align="center"> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.9+-blue.svg?style=for-the-badge&logo=python"></a> <a href="https://flask.palletsprojects.com/"><img src="https://img.shields.io/badge/Flask-2.x-black.svg?style=for-the-badge&logo=flask"></a> <a href="https://www.sqlite.org/"><img src="https://img.shields.io/badge/SQLite-Database-green.svg?style=for-the-badge&logo=sqlite"></a>
+<p align="center"> <img width="1899" height="134" alt="image" src="https://github.com/user-attachments/assets/844d454f-732d-49bb-9bcf-190640431aa1" />
+ </p> <p align="center"> <b>A Flask-powered web application to help people report, track, and recover lost items efficiently.</b> </p> <p align="center"> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.9+-blue.svg?style=for-the-badge&logo=python"></a> <a href="https://flask.palletsprojects.com/"><img src="https://img.shields.io/badge/Flask-2.x-black.svg?style=for-the-badge&logo=flask"></a> <a href="https://www.sqlite.org/"><img src="https://img.shields.io/badge/SQLite-Database-green.svg?style=for-the-badge&logo=sqlite"></a>
 
 ## 📌 Overview
 
@@ -25,7 +26,7 @@ Deployment	Heroku / Render / Localhost
 
 ## 🚀 Getting Started
 1️⃣ Clone the Repository
-git clone https://github.com/your-username/lost-and-found.git
+git clone https://github.com/tushar-1920/lost-and-found.git
 cd lost-and-found
 
 2️⃣ Create & Activate Virtual Environment
@@ -78,8 +79,8 @@ Open a Pull Request
 
 ## 💼 LinkedIn: https://www.linkedin.com/in/tushar-b5b431296/
 
-## 🐙 GitHub: tushar-1920
+## 🐙 GitHub: https://github.com/tushar-1920
 
-## ✉️ Email: tusharsaab8@example.com
+## ✉️ Email: tusharsaab8@gmail.com
 
 ⭐ If you like this project, don’t forget to star the repository!
