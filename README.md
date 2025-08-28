@@ -9,7 +9,7 @@ The Lost & Found Web Application provides a digital platform for users to report
 ## 🔑 The application is simple, secure, and mobile-friendly — designed to be easily deployed and scaled.
 
 ## ✨ Core Features
-g
+
 ✅ Authentication System – Secure login and registration
 ✅ Post Management – Create, view, update, and delete lost/found posts
 ✅ Search & Filters – Find items using categories, keywords, or date filters
