@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}About Us — Lost & Found{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="py-5 bg-primary text-white text-center animate__animated animate__fadeInDown">
+  <div class="container">
+    <h1 class="display-4 fw-bold">About Lost & Found</h1>
+    <p class="lead">Our mission is to reunite people with what matters most.</p>
+  </div>
+</section>
+
+<!-- About Content Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-md-6 animate__animated animate__zoomIn">
+        <img src="{{ url_for('static', filename='images/profile.jpg') }}"
+             alt="Profile Photo"
+             class="img-fluid rounded-circle shadow-lg profile-img-hover"
+             style="max-width: 250px; transition: transform 0.4s ease;"
+             onerror="this.onerror=null;this.src='https://via.placeholder.com/250x250.png?text=No+Image';">
+        <h2 class="mt-4 animate__animated animate__fadeInDown">Hi, I'm Tushar</h2>
+        <p class="lead animate__animated animate__fadeInUp">
+          I built this Lost & Found app to help people reconnect with their lost belongings.
+          Our goal is to connect finders and owners through secure listings and trusted communication.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Vision -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="mb-4 animate__animated animate__fadeInUp">Our Vision</h2>
+    <p class="lead animate__animated animate__fadeInUp">
+      A world where no lost item remains lost for long. We believe in the power of community and technology to solve everyday problems.
+    </p>
+  </div>
+</section>
+
+<!-- Social Media Icons Section -->
+<style>
+  .profile-img-hover:hover {
+    transform: scale(1.08);
+  }
+
+  .social-icon {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    background: #f8f9fa;
+    color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .social-icon:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+  }
+
+  .social-icon:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  }
+
+  .social-icon.twitter:hover {
+    background-color: #1DA1F2;
+    color: white;
+  }
+
+  .social-icon.facebook:hover {
+    background-color: #3b5998;
+    color: white;
+  }
+
+  .social-icon.instagram:hover {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    color: white;
+  }
+
+  .social-icon.linkedin:hover {
+    background-color: #0077b5;
+    color: white;
+  }
+
+  .social-icon.email:hover {
+    background-color: #343a40;
+    color: white;
+  }
+</style>
+
+<section class="py-5 bg-white text-center">
+  <div class="container">
+    <h3 class="mb-4 animate__animated animate__pulse">🌐 Connect With Us</h3>
+    <div class="d-flex justify-content-center gap-4 animate__animated animate__fadeInUp flex-wrap">
+      <a href="https://twitter.com/yourhandle" target="_blank" class="social-icon twitter" aria-label="Twitter">
+        <i class="bi bi-twitter"></i>
+      </a>
+      <a href="https://facebook.com/yourhandle" target="_blank" class="social-icon facebook" aria-label="Facebook">
+        <i class="bi bi-facebook"></i>
+      </a>
+      <a href="https://instagram.com/_tushar_1920_" target="_blank" class="social-icon instagram" aria-label="Instagram">
+        <i class="bi bi-instagram"></i>
+      </a>
+      <a href="mailto:tusharsaab9@example.com" class="social-icon email" aria-label="Email">
+        <i class="bi bi-envelope-fill"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/tushar-b5b431296/" target="_blank" class="social-icon linkedin" aria-label="LinkedIn">
+        <i class="bi bi-linkedin"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

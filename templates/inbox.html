@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .message-card {
+        transition: all 0.3s ease;
+    }
+
+    .message-card:hover {
+        transform: scale(1.01);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .avatar-circle {
+        width: 48px;
+        height: 48px;
+        background-color: #6c757d;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .dark-mode .avatar-circle {
+        background-color: #bbb;
+        color: #000;
+    }
+
+    .inbox-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .inbox-header h2 {
+        font-weight: bold;
+    }
+
+    .timestamp {
+        font-size: 0.85rem;
+        color: #888;
+    }
+
+    .dark-mode .timestamp {
+        color: #aaa;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="inbox-header">
+        <h2>📥 Inbox Messages</h2>
+    </div>
+
+    {% if messages %}
+        <div class="row g-3">
+            {% for msg in messages %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card message-card shadow-sm h-100">
+                    <div class="card-body d-flex">
+                        <div class="me-3">
+                            <div class="avatar-circle">
+                                {{ msg.sender.email[0]|upper }}
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="card-title mb-1">From: {{ msg.sender.email }}</h5>
+                            <p class="mb-1">
+                                <strong>Item:</strong> {{ msg.item_type.capitalize() }} #{{ msg.item_id }}
+                            </p>
+                            <p class="mb-2">{{ msg.content }}</p>
+                            <p class="timestamp">{{ msg.timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">No messages found.</div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Recently Lost Items</h2>
+<div class="row">
+    {% for item in lost %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <img src="{{ url_for('uploaded_file', filename=item.image) }}" 
+                 class="card-img-top img-fluid" 
+                 alt="{{ item.title }}"
+                 data-bs-toggle="modal" 
+                 data-bs-target="#imageModal" 
+                 data-bs-image="{{ url_for('uploaded_file', filename=item.image) }}"
+                 data-bs-title="{{ item.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.description }}</p>
+                <small class="text-muted">Lost on: {{ item.date_lost.strftime('%Y-%m-%d') }}</small>
+
+                {% if item.user %}
+                <div class="mt-3">
+                    <p class="mb-1"><strong>Posted by:</strong> {{ item.user.name or 'Anonymous' }}</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% if item.user.phone %}
+                        <a href="tel:{{ item.user.phone }}" class="btn btn-sm btn-success">📞 Call Owner</a>
+                        {% endif %}
+                        {% if item.user.email %}
+                        <a href="mailto:{{ item.user.email }}" class="btn btn-sm btn-primary">📧 Email Owner</a>
+                        {% endif %}
+                        <a href="{{ url_for('contact_owner', item_type='lost', item_id=item.id) }}" class="btn btn-outline-secondary btn-sm">
+                            📞 Contact Owner
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Comments Section -->
+                <div class="mt-3">
+                    <h6>Comments:</h6>
+                    {% for comment in item.comments %}
+                    <div class="mb-2">
+                        <strong>{{ comment.user.email }}</strong>: {{ comment.content }}<br>
+                        <small class="text-muted">{{ comment.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+                    </div>
+                    {% endfor %}
+
+                    {% if current_user.is_authenticated %}
+                    <form action="{{ url_for('add_comment', item_type='lost', item_id=item.id) }}" method="post" class="mt-2">
+                        <div class="input-group">
+                            <input type="text" name="content" class="form-control" placeholder="Add a comment..." required>
+                            <button class="btn btn-primary" type="submit">Post</button>
+                        </div>
+                    </form>
+                    {% else %}
+                    <small><a href="{{ url_for('login') }}">Log in to comment</a></small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<hr>
+
+<h2 class="mt-5 mb-4">Recently Found Items</h2>
+<div class="row">
+    {% for item in found %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <img src="{{ url_for('uploaded_file', filename=item.image) }}" 
+                 class="card-img-top img-fluid" 
+                 alt="{{ item.title }}"
+                 data-bs-toggle="modal" 
+                 data-bs-target="#imageModal" 
+                 data-bs-image="{{ url_for('uploaded_file', filename=item.image) }}"
+                 data-bs-title="{{ item.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.description }}</p>
+                <small class="text-muted">Found on: {{ item.date_found.strftime('%Y-%m-%d') }}</small>
+
+                {% if item.user %}
+                <div class="mt-3">
+                    <p class="mb-1"><strong>Posted by:</strong> {{ item.user.name or 'Anonymous' }}</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% if item.user.phone %}
+                        <a href="tel:{{ item.user.phone }}" class="btn btn-sm btn-success">📞 Call Finder</a>
+                        {% endif %}
+                        {% if item.user.email %}
+                        <a href="mailto:{{ item.user.email }}" class="btn btn-sm btn-primary">📧 Email Finder</a>
+                        {% endif %}
+                        <a href="{{ url_for('contact_owner', item_type='found', item_id=item.id) }}" class="btn btn-outline-secondary btn-sm">
+                            📞 Contact Finder
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Comments Section -->
+                <div class="mt-3">
+                    <h6>Comments:</h6>
+                    {% for comment in item.comments %}
+                    <div class="mb-2">
+                        <strong>{{ comment.user.email }}</strong>: {{ comment.content }}<br>
+                        <small class="text-muted">{{ comment.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+                    </div>
+                    {% endfor %}
+
+                    {% if current_user.is_authenticated %}
+                    <form action="{{ url_for('add_comment', item_type='found', item_id=item.id) }}" method="post" class="mt-2">
+                        <div class="input-group">
+                            <input type="text" name="content" class="form-control" placeholder="Add a comment..." required>
+                            <button class="btn btn-primary" type="submit">Post</button>
+                        </div>
+                    </form>
+                    {% else %}
+                    <small><a href="{{ url_for('login') }}">Log in to comment</a></small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Modal for Image Viewer -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="imageModalLabel"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="modalImage" src="" alt="" class="img-fluid rounded">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    const imageModal = document.getElementById('imageModal');
+    imageModal.addEventListener('show.bs.modal', event => {
+        const img = event.relatedTarget;
+        const modalImg = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('imageModalLabel');
+
+        modalImg.src = img.getAttribute('data-bs-image');
+        modalImg.alt = img.alt;
+        modalTitle.textContent = img.getAttribute('data-bs-title');
+    });
+</script>
+{% endblock %}

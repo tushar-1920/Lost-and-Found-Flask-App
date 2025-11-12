@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Lost & Found{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Animate.css for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
+
+<!-- Animate.css for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<style>
+  .hover-zoom {
+    transition: transform 0.3s ease;
+  }
+  .hover-zoom:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+
+
+    <!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<!-- Optional Hover Zoom CSS -->
+<style>
+  .hover-zoom { transition: transform 0.3s ease; }
+  .hover-zoom:hover { transform: scale(1.05); }
+</style>
+
+
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a2e0e9a65a.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar {
+            background: #fff;
+            border-bottom: 1px solid #eaeaea;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .nav-link {
+            font-weight: 500;
+            color: #333;
+            transition: color 0.2s ease;
+        }
+
+        .navbar .nav-link:hover {
+            color: #007bff;
+        }
+
+        .btn-outline-secondary {
+            border-radius: 50px;
+        }
+
+        .flash-msg {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            z-index: 2000;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            text-align: center;
+            background-color: #f1f3f5;
+            color: #555;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background-color: #121212 !important;
+            color: #eee;
+        }
+
+        .dark-mode .navbar,
+        .dark-mode footer,
+        .dark-mode .card,
+        .dark-mode .btn {
+            background-color: #1f1f1f !important;
+            color: #eee !important;
+        }
+
+        .dark-mode .nav-link {
+            color: #ccc !important;
+        }
+
+        /* Chatbot */
+        #chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #chatbox {
+            background: white;
+            border: 1px solid #ccc;
+            width: 300px;
+            height: 400px;
+            padding: 10px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        #chatbox.dark-mode {
+            background: #1e1e1e;
+            color: #eee;
+        }
+    </style>
+</head>
+<body id="page-body">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top py-3">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold fs-4 text-primary" href="{{ url_for('home') }}">🔍 Lost&Found</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav align-items-center gap-2">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">👨‍💻 About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('stories') }}">🌟 Stories</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('get_started') }}">🚀 Get Started</a></li>
+
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">👤 {{ current_user.email.split('@')[0] }}</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ url_for('inbox') }}">📥 Inbox</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('post_lost') }}">📌 Post Lost</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('post_found') }}">📍 Post Found</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}">🚪 Logout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">🔐 Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">📝 Register</a></li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <button id="toggle-dark" class="btn btn-outline-secondary btn-sm">🌓</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Flash Messages -->
+<div class="flash-msg container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-info alert-dismissible fade show">
+                {% for message in messages %}
+                    <p class="mb-0">{{ message }}</p>
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Main Content -->
+<div class="container my-5">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Footer -->
+<footer>
+
+
+    
+    <div class="container">
+        <p class="mb-2">🌍 Lost & Found Portal — Reuniting people with their belongings</p>
+        <p class="small text-muted">&copy; {{ current_year or 2025 }} All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Chatbot -->
+<div id="chatbot">
+    <button onclick="toggleChat()" class="btn btn-primary rounded-circle">🧠</button>
+    <div id="chatbox">
+        <div id="chatlog" style="height: 330px; overflow-y: auto; font-size: 14px;"></div>
+        <input type="text" id="userInput" placeholder="Type here..." onkeydown="if(event.key==='Enter') sendMessage()" class="form-control mt-2">
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const toggleButton = document.getElementById('toggle-dark');
+    const body = document.getElementById('page-body');
+    const chatbox = document.getElementById('chatbox');
+
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+        chatbox.classList.add('dark-mode');
+    }
+
+    toggleButton?.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        chatbox.classList.toggle('dark-mode');
+        localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+
+    function toggleChat() {
+        const box = document.getElementById('chatbox');
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('userInput');
+        const message = input.value.trim();
+        if (!message) return;
+        appendMessage('You', message);
+        input.value = '';
+        fetch('/chatbot', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        })
+        .then(res => res.json())
+        .then(data => {
+            appendMessage('Bot', data.reply);
+        });
+    }
+
+    function appendMessage(sender, message) {
+        const chatlog = document.getElementById('chatlog');
+        const msg = document.createElement('div');
+        msg.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatlog.appendChild(msg);
+        chatlog.scrollTop = chatlog.scrollHeight;
+    }
+</script>
+
+</body>
+</html>

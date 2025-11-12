@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Share Your Lost & Found Story</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Story Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Your Story</label>
+            <textarea class="form-control" id="content" name="content" rows="6" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Story</button>
+    </form>
+</div>
+{% endblock %}

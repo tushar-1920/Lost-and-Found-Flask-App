@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Post a Lost Item</h2>
+<form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" rows="4" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select name="category" class="form-select" required>
+            <option value="">-- Select Category --</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Pets">Pets</option>
+            <option value="Keys">Keys</option>
+            <option value="Bags">Bags</option>
+            <option value="Others">Others</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input type="text" name="location" class="form-control" placeholder="City or landmark" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Image</label>
+        <input type="file" name="image" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Lost Item</button>
+</form>
+{% endblock %}

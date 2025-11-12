@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>Contact Item Owner</h4>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('send_message', item_type=item_type, item_id=item_id) }}" method="POST">
+                <div class="mb-3">
+                    <label for="content" class="form-label">Your Message:</label>
+                    <textarea class="form-control" name="content" id="content" rows="5" required placeholder="Write your message here..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Send Message</button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary ms-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

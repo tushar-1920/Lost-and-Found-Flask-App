@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Lost & Found Stories Wall</h2>
+    <a href="{{ url_for('share_story') }}" class="btn btn-primary mb-3">Share Your Story</a>
+
+    {% for story in stories %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ story.title }}</h5>
+                <p class="card-text">{{ story.content }}</p>
+                <small class="text-muted">Posted on {{ story.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
