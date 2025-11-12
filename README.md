@@ -3,7 +3,7 @@
  </p> <p align="center"> <b>A Flask-powered web application to help people report, track, and recover lost items efficiently.</b> </p> <p align="center"> <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.9+-blue.svg?style=for-the-badge&logo=python"></a> <a href="https://flask.palletsprojects.com/"><img src="https://img.shields.io/badge/Flask-2.x-black.svg?style=for-the-badge&logo=flask"></a> <a href="https://www.sqlite.org/"><img src="https://img.shields.io/badge/SQLite-Database-green.svg?style=for-the-badge&logo=sqlite"></a>
 
 ## 📌 Overview 
-
+g
 The Lost & Found Web Application provides a digital platform for users to report lost items, register found belongings, and search through an interactive system to reconnect people with their possessions.
 
 ## 🔑 The application is simple, secure, and mobile-friendly — designed to be easily deployed and scaled.
