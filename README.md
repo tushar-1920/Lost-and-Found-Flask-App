@@ -5,7 +5,7 @@
 ## 📌 Overview 
 
 The Lost & Found Web Application provides a digital platform for users to report lost items, register found belongings, and search through an interactive system to reconnect people with their possessions.
-f
+
 ## 🔑 The application is simple, secure, and mobile-friendly — designed to be easily deployed and scaled.
 
 ## ✨ Core Features
